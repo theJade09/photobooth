@@ -1,6 +1,7 @@
 import constants
 import os.path
 from PIL import Image
+import shutil
 
 import tornado.web
 import tornado.websocket
@@ -54,10 +55,17 @@ class PhotoSocketHandler(tornado.websocket.WebSocketHandler):
 
     def resize_image(self, image_name):
         """ Resizes the image and returns the new full path to image """
+        original_path = os.path.join(constants.DIRECTORY_TO_WATCH, image_name)
         resize_path = os.path.join(constants.RESIZE_DIRECTORY, image_name)
-        img = Image.open(os.path.join(constants.DIRECTORY_TO_WATCH, image_name))
-        img.resize([i/4 for i in img.size], Image.ANTIALIAS)
-        img.save(resize_path, 'jpeg')
+
+        # Resize only if greater than 1k
+        if os.path.getsize(original_path) > 1024000:
+            img = Image.open(original_path)
+            new_img = img.resize([i/4 for i in img.size], Image.LINEAR)
+            new_img.save(resize_path, 'jpeg')
+        else:
+            shutil.copyfile(original_path, resize_path)
+
         return image_name 
 
     def check_directory(self):
@@ -68,6 +76,7 @@ class PhotoSocketHandler(tornado.websocket.WebSocketHandler):
         if len(new_dir) > len(self.current_dir):
             new_elements = sorted(list(new_dir - self.current_dir))
             for i in new_elements:
+                self.resize_image(i)
                 self.write_message(i)
             self.current_dir = new_dir
         else:
