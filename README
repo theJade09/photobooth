@@ -1,0 +1,12 @@
+How To Use
+
+Prereqs:
+1) Refer to document https://docs.google.com/document/d/1uMYwWAkdonU6AOgzlTfo8mLNy72A_LZySjMxgV_gibk/edit
+2) Create Directory photobooth in users apache directory.  This is where photos should be saved to.
+3) Modify constants.py to reflect your server information.
+
+
+Procedure:
+1) Startup apache server that will be serving the photos.
+2) Run `python directory_watcher.py` in the background.  This starts up the service that monitors the photobooth directory for new photos.
+3) Run `python main.py`.  This starts up the webserver that runs the UI front end.
