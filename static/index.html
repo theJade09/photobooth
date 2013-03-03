@@ -1,0 +1,84 @@
+<html>
+<head>
+  <link href="http://meyerweb.com/eric/tools/css/reset/reset.css" rel="stylesheet" type="text/css"></link>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <style type='text/css'>
+    .photopreview{
+        /*border: black 1px solid;*/
+        max-width: 90%;
+        max-height:90%;
+        padding: 10px;
+        display: block;
+        vertical-align: top;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #PhotoContainer{
+        text-align: center;
+        display: inline;
+    }
+    #TopBar{
+        height:30px;
+        width:100%;
+        border-bottom:1px solid black;
+    }
+
+    #name_input{
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        /*opacity: 0;*/
+    }
+
+    body{
+        background: white;
+    }
+
+  </style>
+  <script type="text/javascript">
+
+    function handle_photoupdater(){
+      // For Managing updating of the photo.
+      var url_header = 'http://macair.local/~BunBe/photobooth/small/'
+      var photocontainer = '#PhotoContainer'
+      var socket = new WebSocket("ws://macair.local:8888/new_photo")
+
+      socket.onmessage = function(msg){
+         var temp_image = new Image()
+         temp_image.onload = function(){
+            $(photocontainer).html('<img class="photopreview" src="' + url_header + msg.data + '"/>')
+         }
+         temp_image.src = url_header + msg.data
+      }
+
+      $(window).unbind('beforeunload')
+      $(window).bind('beforeunload', function(){
+        socket.close()
+      })
+    }
+
+    $(document).ready(function(){
+        handle_photoupdater()
+
+        // Keep focus on text field
+        function focus_input(){
+            $("#name_input").focus()
+        }
+        $("#name_input").focus();
+        $("body").mouseup(focus_input)
+        $(window).focus(focus_input)
+    })
+  </script>
+</head>
+
+<body>
+  <div id='TopBar'>
+  </div>
+  <div id='MainBody'>
+    <div id='PhotoContainer'>
+        <img src='http://macair.local/~BunBe/photobooth'/>
+    </div>
+  </div>
+</body>
+</html>

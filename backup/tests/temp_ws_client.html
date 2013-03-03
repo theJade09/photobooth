@@ -1,0 +1,32 @@
+<html>
+<head>
+<link href="http://meyerweb.com/eric/tools/css/reset/reset.css" rel="stylesheet" type="text/css"></link>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    var socket = new WebSocket("ws://macair.local:8888/new_photo")
+
+    socket.onopen = function(){
+       $('#content').html('client has open the socket')
+    }
+
+    var counter = 1
+
+    socket.onmessage = function(msg){
+       var new_data = $('#content').html() + '<br/>' +  msg.data
+       $('#content').html(new_data)
+    }
+
+    $(window).unbind('beforeunload')
+    $(window).bind('beforeunload', function(){
+      socket.close()
+    })
+  })
+</script>
+</head>
+<body>
+<div id="content"><div>
+</body>
+</html>
+
