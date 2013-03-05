@@ -21,16 +21,20 @@
     #TopBar{
         height:30px;
         width:100%;
-        border-bottom:1px solid black;
+        /*border-bottom:1px solid black;*/
         text-align: right;
+    }
+    #email_box{
+        margin-right: 20px;
+        margin-top: 7px;
     }
 
     input{
-
-        -webkit-border-radius: 2px;
-        -moz-border-radius: 2px;
-        border-radius: 2px;
-        /*opacity: 0;*/
+        border-width: 1px;
+        border-color: #333333;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
     }
 
     body{
@@ -76,7 +80,7 @@
 
 <body>
   <div id='TopBar'>
-    <input type='textbox'/>
+    <input id='email_box' type='textbox'/>
   </div>
   <div id='MainBody'>
     <div id='PhotoContainer'>
