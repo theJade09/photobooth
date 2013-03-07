@@ -22,7 +22,7 @@
     }
     #email_box{
         margin-right: 20px;
-        margin-top: 7px;
+        margin-top: 10px;
     }
 
     input{
@@ -60,6 +60,12 @@
       })
     }
 
+    var topbar_total_height = $("TopBar").height()
+
+    function resize_main_window(){
+        $("#MainBody").height($(window).height()-topbar_total_height-$("#MainBody").attr())
+    }
+
     $(document).ready(function(){
         handle_photoupdater()
 
@@ -71,10 +77,8 @@
         $("body").mouseup(focus_input)
         $(window).focus(focus_input)
 
-        $("#MainBody").height($(window).height()-31)
-        $(window).resize(function (){
-            $("#MainBody").height($(window).height()-31)
-        })
+        resize_main_window()
+        $(window).resize(resize_main_window())
     })
   </script>
 </head>
