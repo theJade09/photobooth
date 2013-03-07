@@ -4,25 +4,21 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <style type='text/css'>
     .photopreview{
-        /*border: black 1px solid;*/
-        max-width: 90%;
-        max-height:90%;
+        border: black 1px solid;
+        max-width: 95%;
+        max-height:95%;
         padding: 10px;
         display: block;
-        vertical-align: top;
-        text-align: center;
         margin-left: auto;
         margin-right: auto;
-    }
-    #PhotoContainer{
-        text-align: center;
-        display: inline;
     }
     #TopBar{
         height:30px;
         width:100%;
-        /*border-bottom:1px solid black;*/
         text-align: right;
+    }
+    #MainBody{
+        margin-top:20px;
     }
     #email_box{
         margin-right: 20px;
@@ -37,7 +33,7 @@
         border-radius: 0px;
     }
 
-    body{
+    html,body{
         background: white;
     }
 
@@ -74,6 +70,11 @@
         $("#name_input").focus();
         $("body").mouseup(focus_input)
         $(window).focus(focus_input)
+
+        $("#MainBody").height($(window).height()-31)
+        $(window).resize(function (){
+            $("#MainBody").height($(window).height()-31)
+        })
     })
   </script>
 </head>
