@@ -8,5 +8,4 @@ Prereqs:
 
 Procedure:
 1) Startup apache server that will be serving the photos.
-2) Run `python directory_watcher.py` in the background.  This starts up the service that monitors the photobooth directory for new photos.
-3) Run `python main.py`.  This starts up the webserver that runs the UI front end.
+2) Run `python main.py` in the background.

@@ -1,6 +1,9 @@
 import os
 
-BASE_DIR = '/Users/BunBe/Sites/'
+USERNAME = 'BunBe'
+
+HOSTNAME = 'localhost'
+BASE_DIR = '/Users/%s/Sites/' % USERNAME
 HOME_FOLDER = 'photobooth'
 WATCH_FOLDER = 'CANON'
 DIRECTORY_TO_WATCH = os.path.join(BASE_DIR, HOME_FOLDER, WATCH_FOLDER)
@@ -12,8 +15,6 @@ if not os.path.isdir(RESIZE_DIRECTORY):
 if not os.path.isdir(DIRECTORY_TO_WATCH):
  os.mkdir(DIRECTORY_TO_WATCH)
 
-HOSTNAME = 'macair.local'
-USERNAME = 'BunBe'
 IMAGE_PATH = '%s/%s/%s' % (HOME_FOLDER, WATCH_FOLDER, 'small')
 PHOTOBOOTH_URL = 'http://%s/~%s/%s' % (HOSTNAME, USERNAME, IMAGE_PATH)
 
