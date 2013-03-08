@@ -6,7 +6,6 @@
     .photopreview{
         border: black 1px solid;
         max-width: 95%;
-        max-height:95%;
         padding: 10px;
         display: block;
         margin-left: auto;
@@ -19,12 +18,12 @@
     }
     #MainBody{
         margin-top:20px;
+        margin-bottom:20px;
     }
     #email_box{
         margin-right: 20px;
         margin-top: 10px;
     }
-
     input{
         border-width: 1px;
         border-color: #333333;
@@ -50,6 +49,7 @@
          var temp_image = new Image()
          temp_image.onload = function(){
             $(photocontainer).html('<img class="photopreview" src="' + url_header + msg.data + '"/>')
+            resize_image()
          }
          temp_image.src = url_header + msg.data
       }
@@ -63,7 +63,16 @@
     var topbar_total_height = $("TopBar").height()
 
     function resize_main_window(){
-        $("#MainBody").height($(window).height()-topbar_total_height-$("#MainBody").attr())
+        // 30 = TopBar Height
+        // 40 = MainBody Margins on both top and bottom
+        $("#MainBody").height($(window).height()-30-40)
+    }
+
+    function resize_image(){
+        //  20 = Equal margin with the top margin-bottom
+        //  20 = picture padding * 2
+        //  2 = 2px per border
+        $('.photopreview').css('max-height', ($('#MainBody').height()-20-20-2))
     }
 
     $(document).ready(function(){
@@ -78,7 +87,10 @@
         $(window).focus(focus_input)
 
         resize_main_window()
-        $(window).resize(resize_main_window())
+        $(window).resize(function(){
+            resize_main_window()
+            resize_image()
+        })
     })
   </script>
 </head>
