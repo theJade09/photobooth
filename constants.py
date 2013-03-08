@@ -2,7 +2,7 @@ import os
 
 USERNAME = 'BunBe'
 
-HOSTNAME = 'localhost'
+HOSTNAME = 'macair.local'
 BASE_DIR = '/Users/%s/Sites/' % USERNAME
 HOME_FOLDER = 'photobooth'
 WATCH_FOLDER = 'CANON'
@@ -15,7 +15,7 @@ if not os.path.isdir(RESIZE_DIRECTORY):
 if not os.path.isdir(DIRECTORY_TO_WATCH):
  os.mkdir(DIRECTORY_TO_WATCH)
 
-IMAGE_PATH = '%s/%s/%s' % (HOME_FOLDER, WATCH_FOLDER, 'small')
+IMAGE_PATH = '%s/%s' % (HOME_FOLDER, 'small')
 PHOTOBOOTH_URL = 'http://%s/~%s/%s' % (HOSTNAME, USERNAME, IMAGE_PATH)
 
 WS_PATH = '/new_photo'

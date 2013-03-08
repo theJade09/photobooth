@@ -49,7 +49,8 @@ class PhotoSocketHandler(tornado.websocket.WebSocketHandler):
         # Initialize Directory Listing
         self.current_dir = PhotoSocketHandler.get_dir()
         try:
-          self.write_message(sorted(self.current_dir)[-1])
+          self.write_message('%s/%s' % (constants.PHOTOBOOTH_URL,
+                             sorted(self.current_dir)[-1]))
         except:
           self.write_message('directory is empty')
 
@@ -81,7 +82,8 @@ class PhotoSocketHandler(tornado.websocket.WebSocketHandler):
             new_elements = sorted(list(new_dir - self.current_dir))
             for i in new_elements:
                 self.resize_image(i)
-                self.write_message(i)
+                i_fullpath = '%s/%s' % (constants.PHOTOBOOTH_URL + i)
+                self.write_message(i_fullpath)
             self.current_dir = new_dir
         else:
             # If the directory somehow changed (removed file),

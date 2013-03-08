@@ -41,17 +41,16 @@
 
     function handle_photoupdater(){
       // For Managing updating of the photo.
-      var url_header = 'http://macair.local/~BunBe/photobooth/small/'
       var photocontainer = '#PhotoContainer'
       var socket = new WebSocket("ws://macair.local:8888/new_photo")
 
       socket.onmessage = function(msg){
          var temp_image = new Image()
          temp_image.onload = function(){
-            $(photocontainer).html('<img class="photopreview" src="' + url_header + msg.data + '"/>')
+            $(photocontainer).html('<img class="photopreview" src="' +  msg.data + '"/>')
             resize_image()
          }
-         temp_image.src = url_header + msg.data
+         temp_image.src = msg.data
       }
 
       $(window).unbind('beforeunload')
