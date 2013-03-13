@@ -23,9 +23,18 @@ class WebSocketServer(tornado.web.Application):
           (constants.WS_PATH, PhotoSocketHandler),
           (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': static_path}),
           (r'/(.*)', tornado.web.StaticFileHandler, {'path': static_path}),
+          (r'/templates/(.*)', FrontEndClient, {'path': 'templates'}),
         ]
-        settings = {}
+        settings = {
+#            'template_path':os.path.join(os.path.dirname(__file__), "templates")
+        }
         tornado.web.Application.__init__(self, handlers, **settings)
+
+
+class FrontEndClient(tornado.web.RequestHandler):
+    def get():
+        self.render('index2.html', ws_url=constants.WS_URL)
+
 
 
 class PhotoSocketHandler(tornado.websocket.WebSocketHandler):
@@ -82,7 +91,7 @@ class PhotoSocketHandler(tornado.websocket.WebSocketHandler):
             new_elements = sorted(list(new_dir - self.current_dir))
             for i in new_elements:
                 self.resize_image(i)
-                i_fullpath = '%s/%s' % (constants.PHOTOBOOTH_URL + i)
+                i_fullpath = '%s/%s' % (constants.PHOTOBOOTH_URL, i)
                 self.write_message(i_fullpath)
             self.current_dir = new_dir
         else:
